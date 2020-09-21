@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    protected title = 'angular-form-differences';
+    public title = 'angular-form-differences';
 
     constructor(private router: Router) {}
 
