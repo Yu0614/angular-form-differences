@@ -4,11 +4,10 @@
             <p>REACTIVE</p>
         </div>
         <h1>Welcome</h1>
-
-        <form class="form">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button type="submit" id="login-button">Login</button>
+        <form class="form" [formGroup]="loginForm" (ngSubmit)="submit()">
+            <input type="text" placeholder="userName" formControlName="userName" />
+            <input type="password" placeholder="Password" formControlName="password" />
+            <button type="submit" id="login-button" [disabled]="!loginForm.valid">Login</button>
         </form>
     </div>
 
