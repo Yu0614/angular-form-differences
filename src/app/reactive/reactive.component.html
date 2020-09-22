@@ -4,9 +4,9 @@
             <p>REACTIVE</p>
         </div>
         <h1>Welcome</h1>
-        <!-- using formGroup to link form with component -->
+        <!-- ① using formGroup to link form with component -->
         <form class="form" [formGroup]="loginForm" (ngSubmit)="submit()">
-            <!-- using formControlName to link form with component's attribute -->
+            <!-- ② using formControlName to link form with component's attribute -->
             <input type="email" placeholder="mail" formControlName="mail" />
             <input type="password" placeholder="Password" formControlName="password" />
             <button class="button" type="submit" id="login-button" [disabled]="!loginForm.valid">Login</button>
