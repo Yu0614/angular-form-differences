@@ -9,21 +9,68 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class ReactiveComponent implements OnInit {
     constructor(private builder: FormBuilder) {}
 
-    loginForm = this.builder.group({
-        userName: [''],
+    // Using FormBuilder to link and initialize form values
+    public loginForm = this.builder.group({
+        mail: [''],
         password: [''],
     });
 
-    // this also possible though it could be troublesome (using instance)
-    /* protected loginForm = new FormGroup({
-        userName: new FormControl(''),
-        password: new FormControl(''),
-    });*/
+    /**
+     * This also possible though it could be troublesome (using instance..)
+     */
+    // public loginForm = new FormGroup({
+    //     mail: new FormControl(''),
+    //     password: new FormControl(''),
+    // });
 
-    ngOnInit(): void {}
-
+    /**
+     * Submit form values
+     */
     submit() {
         console.log('submit');
-        console.log(this.loginForm.value);
+        window.alert(JSON.stringify(this.loginForm.value));
+    }
+
+    /**
+     * Fill emailAddress with specific email
+     *  L shows example for filling email type
+     *  L Overwrites existing value
+     */
+    fillMail() {
+        // when using FormBuilder, you can set values from method, patchValue()
+        this.loginForm.patchValue({
+            mail: 'sample@example.com',
+        });
+        window.alert(JSON.stringify(this.loginForm.value));
+    }
+
+    /**
+     * Fill password with specific password
+     *  L Shows example for filling password type
+     *  L Overwrites existing value
+     */
+    fillPassword() {
+        // when using FormBuilder, you can set values from method, patchValue()
+        this.loginForm.patchValue({
+            password: 'pass1word',
+        });
+        window.alert(JSON.stringify(this.loginForm.value));
+    }
+
+    /**
+     * Delete form values
+     */
+    deleteValue() {
+        this.loginForm.patchValue({
+            mail: '',
+            password: '',
+        });
+    }
+
+    /**
+     * Initialize form values
+     */
+    ngOnInit(): void {
+        this.deleteValue();
     }
 }
