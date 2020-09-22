@@ -4,11 +4,29 @@
             <p>TEMPLATE DRIVEN</p>
         </div>
         <h1>Welcome</h1>
-
-        <form class="form">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button type="submit" id="login-button">Login</button>
+        <!-- ① using ngForm to link form with component -->
+        <form class="form" #form="ngForm" (ngSubmit)="submit()">
+            <!-- ② using ngModel to link value with component model -->
+            <input type="email" placeholder="mail" [(ngModel)]="model.mail" name="mail" #mail="ngModel" />
+            <input type="password" placeholder="password" [(ngModel)]="model.password" name="password" #password="ngModel" />
+            <button class="button" type="submit" id="login-button">Login</button>
+            <br />
+            <button class="button fill-button mail" type="button" id="fill-mail-button" [disabled]="!form.valid" (click)="fillMail()">
+                Fill Mail
+            </button>
+            <button
+                class="button fill-button password"
+                type="button"
+                id="fill-password-button"
+                [disabled]="!form.valid"
+                (click)="fillPassword()"
+            >
+                Fill Password
+            </button>
+            <br />
+            <br />
+            <br />
+            <button class="button delete" type="button" id="delete-button" (click)="deleteValue()">DELETE</button>
         </form>
     </div>
 
