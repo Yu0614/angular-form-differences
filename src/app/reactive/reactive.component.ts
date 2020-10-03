@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-reactive',
@@ -11,8 +12,8 @@ export class ReactiveComponent implements OnInit {
 
     // Using FormBuilder to link and initialize form values
     public loginForm = this.builder.group({
-        mail: [''],
-        password: [''],
+        mail: ['', Validators.email], // validates whether email format or not
+        password: ['', Validators.required], // validates form filled or not
     });
 
     /**
@@ -27,7 +28,6 @@ export class ReactiveComponent implements OnInit {
      * Submit form values
      */
     submit() {
-        console.log('submit');
         window.alert(JSON.stringify(this.loginForm.value));
     }
 
@@ -61,7 +61,7 @@ export class ReactiveComponent implements OnInit {
      * Delete form values
      */
     deleteValue() {
-        this.loginForm.patchValue({
+        this.loginForm.setValue({
             mail: '',
             password: '',
         });
