@@ -19,12 +19,7 @@
                 formControlName="password"
                 required
             />
-            <button
-                class="button"
-                type="submit"
-                id="login-button"
-                [disabled]="!loginForm.valid"
-            >
+            <button class="button" type="submit" id="login-button">
                 Login
             </button>
             <br />
@@ -56,6 +51,19 @@
                 DELETE
             </button>
         </form>
+        <p class="alert alert-danger" *ngIf="meta.submitted && emailInvalid">
+            MAIL FORM: INVALID
+        </p>
+        <p
+            class="alert alert-danger"
+            *ngIf="meta.submitted && emailPatternInvalid"
+        >
+            MAIL FORM PATTERN: INVALID
+        </p>
+        <p class="alert alert-danger" *ngIf="meta.submitted && passwordInvalid">
+            PASSWORD FORM: INVALID
+        </p>
+        <p>Form Status: {{ loginForm.status }}</p>
     </div>
 
     <ul class="bg-bubbles">
@@ -70,5 +78,4 @@
         <li></li>
         <li></li>
     </ul>
-    <p>Form Status: {{ loginForm.status }}</p>
 </div>

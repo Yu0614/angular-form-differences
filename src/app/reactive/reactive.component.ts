@@ -10,6 +10,30 @@ import { Validators } from '@angular/forms';
 export class ReactiveComponent implements OnInit {
     constructor(private builder: FormBuilder) {}
 
+    get formStatus() {
+        return this.loginForm.status === 'VALID' ? true : false;
+    }
+    get passwordInvalid() {
+        return this.loginForm.controls.password.errors?.required
+            ? true
+            : false ?? false;
+    }
+    get emailInvalid() {
+        return this.loginForm.controls.mail.errors?.required
+            ? true
+            : false ?? false;
+    }
+    get emailPatternInvalid() {
+        return this.loginForm.controls.mail.errors?.email
+            ? true
+            : false ?? false;
+    }
+
+    // controls form
+    protected meta = {
+        submitted: false as boolean,
+    };
+
     // Using FormBuilder to link and initialize form values
     public loginForm = this.builder.group({
         mail: ['', Validators.email], // validates whether email format or not
@@ -28,7 +52,12 @@ export class ReactiveComponent implements OnInit {
      * Submit form values
      */
     submit() {
-        window.alert(JSON.stringify(this.loginForm.value));
+        this.meta.submitted = true;
+        console.log(this.loginForm);
+        console.log(this.loginForm.status);
+        if (this.formStatus) {
+            window.alert(JSON.stringify(this.loginForm.value));
+        }
     }
 
     /**
