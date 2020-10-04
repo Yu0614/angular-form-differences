@@ -30,7 +30,7 @@ export class ReactiveComponent implements OnInit {
     }
 
     // controls form
-    protected meta = {
+    public meta = {
         submitted: false as boolean,
     };
 
