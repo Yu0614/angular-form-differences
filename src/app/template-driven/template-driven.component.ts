@@ -8,10 +8,32 @@ import { FormBuilder, NgForm } from '@angular/forms';
 })
 export class TemplateDrivenComponent implements OnInit {
     constructor() {}
+
+    get formStatus() {
+        return this.form?.status === 'VALID' ? true : false;
+    }
+    get passwordInvalid() {
+        return this.form?.form?.controls?.password?.errors?.required
+            ? true
+            : false ?? false;
+    }
+    get emailInvalid() {
+        return this.form?.form?.controls?.mail?.errors?.required
+            ? true
+            : false ?? false;
+    }
+    get emailPatternInvalid() {
+        return this.form?.form?.controls?.mail?.errors?.email
+            ? true
+            : false ?? false;
+    }
+
     public model = {
         mail: '',
         password: '',
     };
+
+    // https://angular.io/guide/form-validation
 
     @ViewChild('form')
     form: NgForm;
@@ -22,7 +44,6 @@ export class TemplateDrivenComponent implements OnInit {
      * Submit form values
      */
     submit() {
-        console.log('submit');
         window.alert(JSON.stringify(this.form.value));
     }
 

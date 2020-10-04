@@ -7,18 +7,34 @@
         <!-- ① using formGroup to link form with component -->
         <form class="form" [formGroup]="loginForm" (ngSubmit)="submit()">
             <!-- ② using formControlName to link form with component's attribute -->
-            <input type="email" placeholder="mail" formControlName="mail" />
-            <input type="password" placeholder="Password" formControlName="password" />
-            <button class="button" type="submit" id="login-button" [disabled]="!loginForm.valid">Login</button>
+            <input
+                type="email"
+                placeholder="mail"
+                formControlName="mail"
+                required
+            />
+            <input
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+                required
+            />
+            <button class="button" type="submit" id="login-button">
+                Login
+            </button>
             <br />
-            <button class="button fill-button mail" type="button" id="fill-mail-button" [disabled]="!loginForm.valid" (click)="fillMail()">
+            <button
+                class="button fill-button mail"
+                type="button"
+                id="fill-mail-button"
+                (click)="fillMail()"
+            >
                 Fill Mail
             </button>
             <button
                 class="button fill-button password"
                 type="button"
                 id="fill-password-button"
-                [disabled]="!loginForm.valid"
                 (click)="fillPassword()"
             >
                 Fill Password
@@ -26,8 +42,28 @@
             <br />
             <br />
             <br />
-            <button class="button delete" type="button" id="delete-button" (click)="deleteValue()">DELETE</button>
+            <button
+                class="button delete"
+                type="button"
+                id="delete-button"
+                (click)="deleteValue()"
+            >
+                DELETE
+            </button>
         </form>
+        <p class="alert alert-danger" *ngIf="meta.submitted && emailInvalid">
+            MAIL FORM: INVALID
+        </p>
+        <p
+            class="alert alert-danger"
+            *ngIf="meta.submitted && emailPatternInvalid"
+        >
+            MAIL FORM PATTERN: INVALID
+        </p>
+        <p class="alert alert-danger" *ngIf="meta.submitted && passwordInvalid">
+            PASSWORD FORM: INVALID
+        </p>
+        <p>Form Status: {{ loginForm.status }}</p>
     </div>
 
     <ul class="bg-bubbles">
