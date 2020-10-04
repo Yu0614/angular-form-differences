@@ -53,8 +53,6 @@ export class ReactiveComponent implements OnInit {
      */
     submit() {
         this.meta.submitted = true;
-        console.log(this.loginForm);
-        console.log(this.loginForm.status);
         if (this.formStatus) {
             window.alert(JSON.stringify(this.loginForm.value));
         }
