@@ -113,7 +113,90 @@ public loginForm = this.builder.group({
 
 ### テンプレート駆動フォーム
 
-#### WIP
+#### 使用方法
+
+html側、コンポーネント側双方での準備が必須。
+
+-   ① コンポーネントではデータバインドに使用する フォームのモデルを作成する
+-   ② ngForm を指定し、コンポーネントとリンクさせる, ngModel で コンポーネントで用意したモデルと関連付ける
+-   ③ viewChild を使用してformとしてフォームの入力値を参照、
+  
+```typescript
+  // html 要素の参照
+  @ViewChild('form') form: NgForm;
+``` 
+
+```html
+<!-- ① using ngForm to link form with component -->
+        <form class="form" #form="ngForm" (ngSubmit)="submit()">
+            <!-- ② using ngModel to link value with component model -->
+            <input
+                type="email"
+                placeholder="mail"
+                [(ngModel)]="model.mail"
+                name="mail"
+                #mail="ngModel"
+                required
+                email
+            />
+</form>
+```
+
+#### form のデータ更新
+
+-   ngModel で指定したモデル経由で値を更新することができる
+
+```typescript
+// model の値を更新
+this.model.mail = 'example@example.com';
+this.model.password = 'invalid-password';
+```
+
+#### form の validate
+
+-   バインドした form 経由で validate をかけたいフォーム要素の errors を確認する
+    -   以下で説明する required,email を指定していた場合はその要素の errors を確認することで validateの結果を取得できる
+     
+-   input 要素に required, email を追加する
+    -   required を追加することで必須要素であることをformに伝えることができる
+    -   email を追加することで email のパターンマッチングを行ってくれる
+
+```typescript
+// 指定していた form要素を参照し、 付与したhtmlのvalidate結果を取得する(required,email)
+get emailInvalid() {
+    return this.form?.form?.controls?.mail?.errors?.required ? true : false;
+}
+get emailPatternInvalid() {
+    return this.form?.form?.controls?.mail?.errors?.email ? true : false;
+}
+
+// password の validate 結果の取得
+get passwordInvalid() {
+    return this.form?.form?.controls?.password?.errors?.required ? true : false;
+}
+
+```
+
+```html
+<!-- html の input要素に required,email を追加 -->
+<input
+    type="email"
+    placeholder="mail"
+    [(ngModel)]="model.mail"
+    name="mail"
+    #mail="ngModel"
+    required
+    email
+/>
+<input
+    type="password"
+    placeholder="password"
+    [(ngModel)]="model.password"
+    name="password"
+    #password="ngModel"
+    required
+/>
+```
 
 ## 起動
 
